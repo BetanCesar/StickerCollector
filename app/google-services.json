@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "848432471418",
+    "firebase_url": "https://stickercollector-cea8e.firebaseio.com",
+    "project_id": "stickercollector-cea8e",
+    "storage_bucket": "stickercollector-cea8e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:848432471418:android:e58bb48893c2c112",
+        "android_client_info": {
+          "package_name": "com.cesarbetan.android.stickercollector"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "848432471418-6dqpcfatgal1qkre9o3ftd3to3gm57jv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cesarbetan.android.stickercollector",
+            "certificate_hash": "5fcff019a443a70cb11c9bde23db82de22f4aa92"
+          }
+        },
+        {
+          "client_id": "848432471418-083gkqdhb91b8be951u7d51imvo68r39.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpiZVbHSmc1mAD9WpU-ioJRO7Mrf71N60"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "848432471418-083gkqdhb91b8be951u7d51imvo68r39.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
