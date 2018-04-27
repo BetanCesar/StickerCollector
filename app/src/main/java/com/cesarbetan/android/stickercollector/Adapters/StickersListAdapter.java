@@ -1,7 +1,6 @@
 package com.cesarbetan.android.stickercollector.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cesarbetan.android.stickercollector.R;
-import com.cesarbetan.android.stickercollector.StickersActivity;
-import com.cesarbetan.android.stickercollector.pojo.Category;
 import com.cesarbetan.android.stickercollector.pojo.Sticker;
 
 import java.util.List;
