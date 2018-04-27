@@ -266,7 +266,7 @@ public class AddRemoveStickerActivity extends Activity {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                                toastSuccessDelete();
+                                //toastSuccessDelete();
                                 sticker = "#";
                                 stickerCounter = 0;
                                 stickerSelectedText.setText(sticker);
@@ -298,14 +298,30 @@ public class AddRemoveStickerActivity extends Activity {
                 stick.put("number", sticker);
                 stick.put("owned", "false");
                 stick.put("quantity", "0");
-
+                docRef.collection("stickers").document(sticker)
+                        .delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                toastSuccessDelete();
+                                //sticker = "#";
+                                stickerCounter = 0;
+                                stickerSelectedText.setText(sticker);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG, "Error deleting document", e);
+                            }
+                        });
                 docRef2.collection("stickers").document(sticker)
                         .set(stick)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Log.d(TAG, "DocumentSnapshot successfully written!");
-                                toastSuccessAdd();
                                 sticker = "#";
                                 stickerCounter = 0;
                                 stickerSelectedText.setText(sticker);
@@ -365,30 +381,11 @@ public class AddRemoveStickerActivity extends Activity {
                             }
                         });
 
-                docRef.collection("stickers").document(sticker)
-                        .delete()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                                toastSuccessDelete();
-                                sticker = "#";
-                                stickerCounter = 0;
-                                stickerSelectedText.setText(sticker);
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.d(TAG, "Error deleting document", e);
-                            }
-                        });
-
             }else{
                 sticker = "#";
                 stickerCounter = 0;
                 stickerSelectedText.setText(sticker);
-                Toast.makeText(this, "Dude! Los stickers van del 00 al 681", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Dude! Los stickers van del 0 al 681", Toast.LENGTH_LONG).show();
             }
         }else{
             Toast.makeText(this, "Ingresa un número", Toast.LENGTH_LONG).show();

@@ -2,8 +2,10 @@ package com.cesarbetan.android.stickercollector;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -48,7 +50,7 @@ public class StickersActivity extends Activity {
 
         mStickersList = (RecyclerView) findViewById(R.id.stickerList);
         mStickersList.setHasFixedSize(true);
-        mStickersList.setLayoutManager(new LinearLayoutManager(this));
+        mStickersList.setLayoutManager(new GridLayoutManager(this, 4));
         mStickersList.setAdapter(stickersListAdapter);
 
         mFirestore = FirebaseFirestore.getInstance();
