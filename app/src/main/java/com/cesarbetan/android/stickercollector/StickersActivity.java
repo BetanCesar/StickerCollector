@@ -46,7 +46,7 @@ public class StickersActivity extends Activity {
         final String category_selected = intent.getExtras().getString("id");
 
         stickerList = new ArrayList<>();
-        stickersListAdapter = new StickersListAdapter(getApplicationContext(), stickerList);
+        stickersListAdapter = new StickersListAdapter(getApplicationContext(), stickerList, category_selected);
 
         mStickersList = (RecyclerView) findViewById(R.id.stickerList);
         mStickersList.setHasFixedSize(true);
