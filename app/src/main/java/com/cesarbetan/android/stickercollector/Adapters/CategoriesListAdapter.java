@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cesarbetan.android.stickercollector.R;
+import com.cesarbetan.android.stickercollector.StickersActivity;
 import com.cesarbetan.android.stickercollector.pojo.Category;
 
 import java.util.List;
@@ -37,18 +38,24 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.nameText.setText(categoryList.get(position).getName());
-        holder.quantityText.setText(categoryList.get(position).getOwned() + "/" + categoryList.get(position).getTotal());
+        if(!categoryList.get(position).getName().equals("Faltantes")){
+            holder.nameText.setText(categoryList.get(position).getName());
+            holder.quantityText.setText(categoryList.get(position).getOwned() + "/" + categoryList.get(position).getTotal());
+        }
+        else{
+            holder.nameText.setText(categoryList.get(position).getName());
+            holder.quantityText.setText(categoryList.get(position).getOwned());
+        }
 
         final String category_id = categoryList.get(position).categoryId;
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Category ID: " + category_id, Toast.LENGTH_SHORT).show();
-                /*Intent intent = new Intent(context,DispositivosActivity.class);
-                intent.putExtra("id", material_id);
-                context.startActivity(intent);*/
+                //Toast.makeText(context, "Category ID: " + category_id, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, StickersActivity.class);
+                intent.putExtra("id", category_id);
+                context.startActivity(intent);
             }
         });
     }

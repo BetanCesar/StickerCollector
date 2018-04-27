@@ -36,6 +36,7 @@ public class AddRemoveStickerActivity extends Activity {
 
     private FirebaseFirestore mFirestore;
     private DocumentReference docRef;
+    private DocumentReference docRef2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class AddRemoveStickerActivity extends Activity {
 
         mFirestore = FirebaseFirestore.getInstance();
         docRef = mFirestore.collection("Categories").document("jFhcYOqYpQBbyeLM5Wmi");
+        docRef2 = mFirestore.collection("Categories").document("rV7XosFKhaxZkc5aP7NJ");
     }
 
     public void numberSticker(View v){
@@ -155,6 +157,29 @@ public class AddRemoveStickerActivity extends Activity {
         }
     }
     public void restartSticker(View v) {
+        for(int i = 0; i < 683; i++) {
+
+
+            Map<String, Object> stick = new HashMap<>();
+            stick.put("number", i);
+            stick.put("owned", "false");
+            stick.put("quantity", "0");
+
+            docRef.collection("stickers").document(i+"")
+                    .set(stick)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "DocumentSnapshot successfully written!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error writing document", e);
+                        }
+                    });
+        }
         sticker = "-";
         stickerCounter = 0;
         stickerSelectedText.setText(sticker);
@@ -189,8 +214,24 @@ public class AddRemoveStickerActivity extends Activity {
                                                     for (DocumentSnapshot document : task.getResult()) {
                                                         count++;
                                                     }
+                                                    int faltan = 682-count;
                                                     String countS = count + "";
+                                                    String countF = faltan + "";
                                                     DocumentReference todasRef = mFirestore.collection("Categories").document("jFhcYOqYpQBbyeLM5Wmi");
+                                                    DocumentReference faltanRef = mFirestore.collection("Categories").document("rV7XosFKhaxZkc5aP7NJ");
+                                                    faltanRef.update("owned", countF)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                                }
+                                                            })
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Log.w(TAG, "Error updating document", e);
+                                                                }
+                                                            });
                                                     todasRef.update("owned", countS)
                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override
@@ -219,6 +260,25 @@ public class AddRemoveStickerActivity extends Activity {
                             }
                         });
 
+                docRef2.collection("stickers").document(sticker)
+                        .delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                toastSuccessDelete();
+                                sticker = "#";
+                                stickerCounter = 0;
+                                stickerSelectedText.setText(sticker);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG, "Error deleting document", e);
+                            }
+                        });
+
             }else{
                 sticker = "#";
                 stickerCounter = 0;
@@ -236,8 +296,74 @@ public class AddRemoveStickerActivity extends Activity {
             if(stickerNumber < 682){
                 Map<String, Object> stick = new HashMap<>();
                 stick.put("number", sticker);
-                stick.put("owned", "true");
-                stick.put("quantity", "1");
+                stick.put("owned", "false");
+                stick.put("quantity", "0");
+
+                docRef2.collection("stickers").document(sticker)
+                        .set(stick)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully written!");
+                                toastSuccessAdd();
+                                sticker = "#";
+                                stickerCounter = 0;
+                                stickerSelectedText.setText(sticker);
+                                docRef.collection("stickers")
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    int count = 0;
+                                                    for (DocumentSnapshot document : task.getResult()) {
+                                                        count++;
+                                                    }
+                                                    int faltan = 682-count;
+                                                    String countS = count + "";
+                                                    String countF = faltan + "";
+                                                    DocumentReference todasRef = mFirestore.collection("Categories").document("jFhcYOqYpQBbyeLM5Wmi");
+                                                    DocumentReference faltanRef = mFirestore.collection("Categories").document("rV7XosFKhaxZkc5aP7NJ");
+                                                    faltanRef.update("owned", countF)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                                }
+                                                            })
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Log.w(TAG, "Error updating document", e);
+                                                                }
+                                                            });
+                                                    todasRef.update("owned", countS)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                                }
+                                                            })
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Log.w(TAG, "Error updating document", e);
+                                                                }
+                                                            });
+                                                    Log.d(TAG, "Total: "+ count);
+                                                } else {
+                                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                                }
+                                            }
+                                        });
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error writing document", e);
+                            }
+                        });
 
                 docRef.collection("stickers").document(sticker)
                         .delete()

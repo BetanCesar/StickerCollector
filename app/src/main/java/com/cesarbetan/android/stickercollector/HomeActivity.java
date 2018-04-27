@@ -52,25 +52,13 @@ public class HomeActivity extends Activity {
                 }
 
                 categoryList.clear();
-                for(DocumentChange doc: documentSnapshots.getDocumentChanges()){
-                    if(doc.getType() == DocumentChange.Type.ADDED){
+                for(DocumentSnapshot doc: documentSnapshots){
+                    String category_id = doc.getId();
 
-                        String category_id = doc.getDocument().getId();
+                    Category category = doc.toObject(Category.class).withId(category_id);
+                    categoryList.add(category);
 
-                        Category category = doc.getDocument().toObject(Category.class).withId(category_id);
-                        categoryList.add(category);
-
-                        categoriesListAdapter.notifyDataSetChanged();
-                    }
-                    if(doc.getType() == DocumentChange.Type.MODIFIED){
-
-                        String category_id = doc.getDocument().getId();
-
-                        Category category = doc.getDocument().toObject(Category.class).withId(category_id);
-                        categoryList.add(category);
-
-                        categoriesListAdapter.notifyDataSetChanged();
-                    }
+                    categoriesListAdapter.notifyDataSetChanged();
                 }
             }
         });
