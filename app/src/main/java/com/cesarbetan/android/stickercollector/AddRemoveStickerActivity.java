@@ -157,30 +157,7 @@ public class AddRemoveStickerActivity extends Activity {
         }
     }
     public void restartSticker(View v) {
-        for(int i = 0; i < 683; i++) {
-
-
-            Map<String, Object> stick = new HashMap<>();
-            stick.put("number", i);
-            stick.put("owned", "false");
-            stick.put("quantity", "0");
-
-            docRef.collection("stickers").document(i+"")
-                    .set(stick)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d(TAG, "DocumentSnapshot successfully written!");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error writing document", e);
-                        }
-                    });
-        }
-        sticker = "-";
+        sticker = "#";
         stickerCounter = 0;
         stickerSelectedText.setText(sticker);
     }
